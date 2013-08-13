@@ -48,8 +48,8 @@ urlpatterns = patterns('',
     (r'^b/', include('posts.urls')),
 
     # Accounts
-    url(r'accounts/', include('social_auth.urls')),
-    url(r'accounts/logout/$', 'views.logout_page', name='logout_page'),
+    # url(r'accounts/', include('social_auth.urls')),
+    # url(r'accounts/logout/$', 'views.logout_page', name='logout_page'),
 
     # Warmup
     ('^_ah/warmup$', 'djangoappengine.views.warmup'),

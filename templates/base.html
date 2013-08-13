@@ -88,7 +88,8 @@ tinyMCE.init({
         <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url logout_page %}" title="{% trans 'Logout' %}">{% trans "Logout"%} </a></li> 
         <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url profiles_profile_detail user.username %}" title="{% trans 'View profile.' %}">{{user.username}}</a></li> 
 {% else %}
-        <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url begin backend='google' %}" title="{% trans 'Gmail Login' %}">{% trans "Login"%} </a></li> 
+        <li class="page_item current_page_item"><a href="#" title="{% trans 'Gmail Login' %}">{% trans "Login"%} </a></li> 
+        {% comment %} <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url begin backend='google' %}" title="{% trans 'Gmail Login' %}">{% trans "Login"%} </a></li> {% endcomment %}
 {% endif %}
         <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url profiles_profile_list %}" title="{% trans 'User profiles' %}">Profiles</a></li> 
         <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url post_list %}" title="{% trans 'Blog' %}">Blog</a></li> 
