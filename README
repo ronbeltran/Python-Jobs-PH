@@ -1,0 +1,12 @@
+Python Jobs PH http://pythonjobsph.appspot.com/
+
+This is the source of my early pet project using native Django on Google Appengine
+via Django-Nonrel. I noticed the source is just laying around in my HD gathering dust :-).
+So I put it up on the net for future references.
+
+TODO:
+
+Update the code to run on Python 2.7 Runtime
+Or rewrite everything in plain and deploy to Heroku since orignal developers already abandoned django-nonrel project.
+
+
