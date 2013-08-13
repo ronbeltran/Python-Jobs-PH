@@ -6,6 +6,7 @@ So I put it up on the net for future references.
 
 TODO:
 
+Make the code run on local development
 Update the code to run on Python 2.7 Runtime
 Or rewrite everything in plain and deploy to Heroku since orignal developers already abandoned django-nonrel project.
 
