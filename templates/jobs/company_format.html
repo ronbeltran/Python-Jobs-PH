@@ -1,0 +1,37 @@
+{% load i18n %}
+{% load jobs_tags %}
+<div id="post">
+<h2 class="entry-title"><a href="{{prefix_abs_uri}}{{entry.get_absolute_url}}">{% trans entry.name|title %}</a></h2>
+<div class="entry-meta">
+  <span class="meta-prep meta-prep-author">{% trans "Posted on" %}</span>
+  <a href="{{show_abs_uri}}" title ="Permalink" rel="bookmark">
+    <span class="entry-date">{{entry.pub_date}}</span>
+  </a>
+  <span class="meta-sep">{% trans "by" %}</span>
+  <span class="author vcard">
+{% if entry.author.get_full_name %}
+    <a class="url fn n" href="{{prefix_abs_uri}}{% url profiles_profile_detail entry.author %}" title="View profile of {{entry.author.get_full_name|title}}">{{entry.author.get_full_name|title}}</a>
+{% else %}
+    <a class="url fn n" href="{{prefix_abs_uri}}{% url profiles_profile_detail entry.author %}" title="View profile of {{entry.author}}">{{entry.author}}</a>
+{% endif %}
+  </span>
+</div><!-- .entry-meta -->
+<div class="entry-content">
+<h3>Overview:</h3>
+<div>{% trans entry.description_html|safe %}</div>
+<br />
+  <div class="profile-details">
+  <table>
+    <tr><th><label for="id_address">Address:</label></th><td>{{entry.address}}</td></tr>
+    <tr><th><label for="id_telephone">Telephone:</label></th><td>{{entry.telephone}}</td></tr>
+    <tr><th><label for="id_fax">Fax:</label></th><td>{{entry.fax}}</td></tr>
+    <tr><th><label for="id_email">Email:</label></th><td>{{entry.email}}</td></tr>
+    <tr><th><label for="id_url">URL:</label></th><td><a href="{{entry.url}}" rel="nofollow" target="_blank">{{entry.url}}</td></tr>
+  </table>
+</div><!-- end company-details -->
+
+</div><!-- .entry-content -->
+
+
+</div><!-- #post -->
+

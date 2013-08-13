@@ -1,0 +1,52 @@
+
+{% extends "base.html" %}
+
+{% block title %}Post a Job{% endblock %}
+
+{% block extrastyle %}
+  <style type="text/css">
+  #id_job_title, #id_salary {
+    width: 100%;
+  }
+  #id_body_html {
+    width: 100%;
+    height: 400px;
+  }
+  #id_howto_apply_html {
+    width: 100%;
+    height: 200px;
+  }
+  .helptext {
+  font-size: smaller;
+  color: green;
+  }
+  ul.errorlist {
+  color: red;
+  font-size: smaller;
+  }
+
+  </style>
+{% endblock %}
+
+{% block content %}
+
+  <h3 class="entry-title">Post a Job</h3> 
+<!--  <span class="help_text"><a href="/review-guidelines/">Read Review Writing Guidelines</a></span> -->
+
+  <form method="post" action="{% url post_job %}" >
+  {% csrf_token %}
+
+  <table class="formset">
+    {{formset.as_table}}
+  </table>
+
+  <p><input type="submit" value="Submit" class="submit" ></p>
+  </form>
+{% endblock %}
+
+{% block primary %}
+{% endblock %}
+
+{% block secondary %}
+{% endblock %}
+

@@ -1,0 +1,27 @@
+{% extends "posts/base_posts.html" %}
+{% load i18n %}
+
+{% block title %}{% trans entry.title %}{% endblock%}
+
+{% block content %}
+{% if entry %}
+{% include 'posts/entry_format.html' %}
+{% endif %}
+{% comment %}
+<div id="comments">
+{% if not settings.debug and entry.enable_comments %}
+{% disqus_show_comments %}
+{% else %}
+{% disqus_dev %}
+{% disqus_show_comments %}
+{% endif %}
+</div>
+{% endcomment %}
+{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{entry.meta_description|striptags|safe}}" />
+<meta name="keywords" content="{{entry.meta_keywords}}" />
+{% if entry.author.get_full_name %}<meta name="author" content="{{entry.author.get_full_name|title}}">{% else %}<meta name="author" content="{{entry.author}}">{% endif %}
+{% endblock%}
+

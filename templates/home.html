@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load jobs_tags %}
+
+{% block title %}{% trans "Home" %}{% endblock%}
+
+{% block content %}
+{% if posts %}
+<ul>
+{% for entry in posts %}
+<li>
+<strong><a href="{{prefix_abs_uri}}{{entry.get_absolute_url}}">{% trans entry.job_title|title %} </a></strong>
+<div style="font-size: smaller;padding:0px;">{{entry.company_name|title}}, {{entry.location|get_location}}, posted {{entry.pub_date|timesince|split:','}} ago</div>
+<div style="font-size: smaller;padding:0px;">{{entry.body_html|striptags|truncatewords:30}}</div>
+</li>
+<br />
+{% endfor %}
+</ul>
+{% else %}
+<h3>Sorry no posts yet. Do you want to post jobs? Try it. It's free.</h3>
+{% endif %}
+
+{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{settings.SITE_DESCRIPTION}}" />
+<meta name="keywords" content="{{settings.SITE_KEYWORDS|join:', '}}" />
+{% endblock%}
+

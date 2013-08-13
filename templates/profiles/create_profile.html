@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Create your Profile{% endblock%}
+
+{% block content %}
+  {% if form %}
+  <h3 class="heading">Create Profile</h3>
+  <form action="{% url profiles_create_profile %}" method="post"> {% csrf_token %}
+  <table>
+  {{form.as_table}}
+  <table>
+  <p><input id="id_submit" type="submit" value="Submit"/></p>
+  </form>
+  {% endif %}
+{% endblock %}
+
+{% block primary %}
+{% endblock %}
+
+{% block secondary %}
+{% endblock %}
+
+{% block meta %}
+{% endblock%}
+
+

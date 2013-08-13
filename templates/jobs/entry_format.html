@@ -1,0 +1,40 @@
+{% load i18n %}
+{% load jobs_tags %}
+<div id="post">
+<h2 class="entry-title"><a href="{{prefix_abs_uri}}{{entry.get_absolute_url}}">{% trans entry.job_title %}</a></h2>
+{{entry.location|get_location}}
+<div class="entry-meta">
+  <span class="meta-prep meta-prep-author">{% trans "Posted on" %}</span>
+  <a href="{{show_abs_uri}}" title ="Permalink" rel="bookmark">
+    <span class="entry-date">{{entry.pub_date}}</span>
+  </a>
+  <span class="meta-sep">{% trans "by" %}</span>
+  <span class="author vcard">
+{% if entry.author.get_full_name %}
+    <a class="url fn n" href="{{prefix_abs_uri}}{% url profiles_profile_detail entry.author %}" title="View profile of {{entry.author.get_full_name|title}}">{{entry.author.get_full_name|title}}</a>
+{% else %}
+    <a class="url fn n" href="{{prefix_abs_uri}}{% url profiles_profile_detail entry.author %}" title="View profile of {{entry.author}}">{{entry.author}}</a>
+{% endif %}
+  </span>
+</div><!-- .entry-meta -->
+
+<div class="entry-content">
+<div>{% trans entry.body_html|safe %}</div>
+<div><strong>Salary: </strong>{% trans entry.salary|safe %}</div>
+<div><strong>How to apply:</strong> {% trans entry.howto_apply_html|safe %}</div>
+</div><!-- .entry-content -->
+
+<div class="entry-utility">
+  <span class="cat-links"> 
+  <span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>
+    <a href="{{prefix_abs_uri}}{{entry.categories.get_absolute_url}}" title="View all posts in {{entry.categories|title}}" rel="category tag">{{entry.categories|title}}</a>
+  </span> 
+  <span class="meta-sep">|</span> 
+  <span class="comments-link">
+    <a href="{{prefix_abs_uri}}{{entry.company_name.get_absolute_url}}" title="View company details: {{entry.company_name|title}}">{{entry.company_name|title}}</a>
+  </span> 
+</div><!-- .entry-utility --> 
+<br />
+
+</div><!-- #post -->
+

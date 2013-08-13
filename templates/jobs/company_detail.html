@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans entry.name %}{% endblock%}
+
+{% block content %}
+
+{% if entry %}
+{% include 'jobs/company_format.html' %}
+{% endif %}
+
+{% endblock %}
+
+{% block meta %}
+<link rel="canonical" href="{{show_abs_uri}}">
+<meta name="description" content="{{entry.description_html|striptags|truncatewords:'50'}}" />
+<meta name="keywords" content="{{entry.name|title}}" />
+{% if entry.author.get_full_name %}<meta name="author" content="{{entry.author.get_full_name|title}}">{% else %}<meta name="author" content="{{entry.author}}">{% endif %}
+{% endblock%}
+

@@ -1,0 +1,32 @@
+
+{% extends "base.html" %}
+
+{% block title %}Post a Company{% endblock %}
+
+{% block extrastyle %}
+{% endblock %}
+
+{% block content %}
+<div class="entry-content">
+  <h3 class="entry-title">Post a Company</h3> 
+<!--  <span class="help_text"><a href="/review-guidelines/">Read Review Writing Guidelines</a></span> -->
+
+  <form method="post" action="{% url post_company %}">
+
+  {% csrf_token %}
+
+  <table class="formset">
+    {{formset.as_table}}
+  </table>
+
+  <p><input type="submit" value="Submit" class="submit" ></p>
+  </form>
+</div>
+{% endblock %}
+
+{% block primary %}
+{% endblock %}
+
+{% block secondary %}
+{% endblock %}
+

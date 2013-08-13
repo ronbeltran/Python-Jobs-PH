@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% blocktrans %}Search: "{{query}}"{% endblocktrans %}{% endblock%}
+
+{% block content %}
+{% if posts %}
+{% blocktrans %}<h3>Search results for: {{query}}</h3>{% endblocktrans %}
+{% for entry in posts %}
+{% include 'posts/entry_format.html' %}
+{% endfor %}
+{% else %}
+{% blocktrans %}<h3>No search results found for: {{query}}</h3>{% endblocktrans %}
+{% endif %}
+{% endblock %}
+

@@ -1,0 +1,63 @@
+
+{% extends "base.html" %}
+{% load i18n %}
+{% load humanize %}
+{% load jobs_tags %}
+
+
+{% block title %}Profile Detail{% endblock%}
+
+{% block content %}
+  {% if profile %}
+  <h3 class="heading">Profile details for {{profile}} {% ifequal user.id profile.user.id %}<a href="{% url profiles_edit_profile %}" title="Edit profile" >edit</a>{% endifequal%}</h3>
+  <div class="profile-details">
+  <table>
+    <tr><th><label for="id_username">Username:</label></th><td>{{profile.user.username}}</td></tr>
+    <tr><th><label for="id_first_name">First name:</label></th><td>{{profile.user.first_name}}</td></tr>
+    <tr><th><label for="id_last_name">Last name:</label></th><td>{{profile.user.last_name}}</td></tr>
+    <tr><th><label for="id_url">URL:</label></th>
+      <td><a href="{{profile.url}}" rel="nofollow" target="_blank">{{profile.url}}</td></tr>
+{% ifequal user.id profile.user.id %}
+    <tr><th><label for="id_email">E-mail address:</label></th><td>{{profile.user.email}}</td></tr>
+{% endifequal %}
+  </table>
+</div><!-- end profile-details -->
+{% endif %}
+{% if company_list  %}
+<div class="my-companies">
+    <h3>My Compan{{company_list|pluralize:'y,ies'}}</h3>
+     <ul>{% for company in company_list  %}
+       {% ifequal company.author.id profile.user.id %}<li><strong><a href="{{prefix_abs_uri}}{{company.get_absolute_url}}" title="">{{company|title}}</a></strong></li>{% endifequal %}
+     {% endfor %}</ul>
+</div>
+{% endif %}
+{% if object_list %}
+  <div class="my-jobs">
+    <h3>My Job{{object_list|pluralize:',s'}}</h3>
+     <ul>{% for entry in object_list  %}
+       {% ifequal entry.author.id profile.user.id %}
+         <li>
+         <strong><a href="{{prefix_abs_uri}}{{entry.get_absolute_url}}" title="">{{entry|title}} - ({{entry.location|get_location}})</a></strong>
+{% ifequal user.id entry.author.id %}
+         <div style="font-size: smaller;padding:0px;">{{entry.status|getstatus}} |<a href="{% url edit_job entry.id %}">edit</a> |
+         {% ifequal entry.status 1 %}<a href="{{entry.get_absolute_url}}">view</a>{% endifequal %}
+         {% if entry.status = 2 or entry.status = 3 %}<a href="{% url job_preview_detail entry.id %}">preview</a>{% endif %}
+         </div>
+{% endifequal %}
+         </li>
+       {% endifequal %}
+     {% endfor %}</ul>
+  </div>
+{% endif %}
+{% endblock %}
+
+{% block primary %}
+{% endblock %}
+
+{% block secondary %}
+{% endblock %}
+
+{% block meta %}
+{% endblock%}
+
+

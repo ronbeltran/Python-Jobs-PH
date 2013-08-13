@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Faq" %}{% endblock%}
+
+{% block content %}
+<h3>Frequently Asked Questions</h3>
+<ol>
+<li>Why did you built this site? <br />Ans: Because I believe Python deserves more love and attention.</li>
+<li>Is it free to post jobs? <br/>Ans: Yes absolutely free.</li>
+<li>How many jobs can I post per day?<br /> Ans: Unlimited.</li>
+<li>Can I post non-Python related jobs?<br /> Ans: Yes sure.</li>
+<li>I already posted a Job, why it isn't showing in the list?<br />
+Ans: Posted jobs will be subject for approval. It will be online soon. Be patient.</li>
+<li>More to come</li>
+</ol>
+<p>P.S.: Please don't post spammy content, If you do that I will just happily delete your profile anyway and ban you from this site. You've been warned.</p>
+{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{settings.SITE_DESCRIPTION}}" />
+<meta name="keywords" content="{{settings.SITE_KEYWORDS|join:', '}}" />
+{% endblock%}
+

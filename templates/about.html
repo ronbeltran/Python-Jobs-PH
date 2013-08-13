@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "About" %}{% endblock%}
+
+{% block content %}
+<p>Greetings! Welcome to <strong>Python Jobs PH</strong> where you can post free Jobs for Python developers. 
+The site's primary focus is to promote Python programming related jobs in the Philippines.</p>
+<p>You can also join the community at <a href="http://groups.google.com/group/pinoy-python-users" target="_blank">Pinoy Python Users Group</a></p>
+<p>For feedback/questions you can reach me at:<br />python -c "print ''.join(['rbbeltran','.','09','@','gmail','.','com'])"</p>
+{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{settings.SITE_DESCRIPTION}}" />
+<meta name="keywords" content="{{settings.SITE_KEYWORDS|join:', '}}" />
+{% endblock%}
+

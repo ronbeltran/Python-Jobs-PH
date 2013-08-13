@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load jobs_tags %}
+
+
+{% block title %}{{category}}{% endblock %}
+
+{% block content %}
+<h3>{{category}}</h3>
+{% if category.description_html  %}
+<div>{{category.description_html|safe}}</div>
+{% endif  %}
+<hr />
+{% if object_list %}
+<h3>Jobs posted under: {{category}}</h3>
+<ul>
+  {% for entry in object_list %}
+<li><strong><a href="{{prefix_abs_uri}}{{entry.get_absolute_url}}">{% trans entry.job_title %} - ({{entry.location|get_location}})</a></strong></li>
+  {% endfor %}
+</ul>
+{% else %}
+  <h3>No job posted yet.</h3>
+{% endif %}
+
+{% endblock %}
+
+{% block primary %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "posts/base_posts.html" %}
+{% load i18n %}
+
+{% block title %}{% blocktrans %} Entries under Category: {{category}}{% endblocktrans %}{% endblock%}
+
+{% block content %}
+{% if post_list %}
+{% for entry in post_list %}
+{% include 'posts/entry_format.html' %}
+{% endfor %}
+{% else %}
+<h3>No posts yet.</h3>
+{% endif %}
+{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{category.description}}" />
+<meta name="keywords" content="{{category}}" />
+{% endblock%}

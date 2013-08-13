@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Preview" %}{% endblock%}
+
+{% block content %}
+{% if posts %}
+{% for entry in posts %}
+{% include 'posts/entry_format.html' %}
+{% endfor %}
+{% else %}
+<h3>No posts found.</h3>
+{% endif %}
+{% endblock %}
+

@@ -1,0 +1,38 @@
+{% load i18n %}
+<div id="post">
+<h2 class="entry-title"><a href="{{prefix_abs_uri}}{{entry.get_absolute_url}}">{% trans entry.title %}</a></h2>
+<div class="entry-meta">
+  <span class="meta-prep meta-prep-author">{% trans "Posted on" %}</span>
+  <a href="{{prefix_abs_uri}}{{entry.get_absolute_url}}" rel="bookmark">
+    <span class="entry-date">{{entry.pub_date}}</span>
+  </a>
+  <span class="meta-sep">{% trans "by" %}</span>
+  <span class="author vcard">
+{% if entry.author.get_full_name %}
+    <a class="url fn n" href="{% url home_page %}" title="View all posts by {{entry.author.get_full_name|title}}">{{entry.author.get_full_name|title}}</a>
+{% else %}
+    <a class="url fn n" href="{% url home_page %}" title="View all posts by {{entry.author}}">{{entry.author}}</a>
+{% endif %}
+  </span>
+</div><!-- .entry-meta -->
+
+<div class="entry-content">
+{% trans entry.body_html|safe %}
+</div><!-- .entry-content -->
+
+<div class="entry-utility">
+  <span class="cat-links"> 
+  <span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>
+    <a href="{{prefix_abs_uri}}{{entry.category.get_absolute_url}}" title="View all posts in {{entry.category}}" rel="category tag">{{entry.category}}</a>
+  </span> 
+{% comment %}
+  <span class="meta-sep">|</span> 
+  <span class="comments-link">
+    <a href="{{prefix_abs_uri}}{{entry.get_absolute_url}}#comments" title="Comment on ">Leave a comment</a>
+  </span> 
+{% endcomment %}
+</div><!-- .entry-utility --> 
+<br />
+
+</div><!-- #post -->
+

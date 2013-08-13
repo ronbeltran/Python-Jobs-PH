@@ -1,0 +1,12 @@
+{% extends "posts/base_posts.html" %}
+
+{% block content %}
+{% if object_list %}
+{% for entry in object_list %}
+{% include 'posts/entry_format.html' %}
+{% endfor %}
+{% else %}
+<h3>No posts found.</h3>
+{% endif %}
+{% endblock %}
+

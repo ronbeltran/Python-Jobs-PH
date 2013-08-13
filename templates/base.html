@@ -1,0 +1,181 @@
+<!DOCTYPE html> {% load i18n %}
+<html dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" lang="{% firstof LANGUAGE_CODE 'en' %}">
+<head>
+<meta charset="UTF-8" />
+<title>{%block title%}{%endblock%} | {% trans settings.SITE_NAME %}</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="stylesheet" type="text/css" href="{{prefix_abs_uri}}{{settings.MEDIA_URL}}css/style.css" />
+<link rel="alternate" type="application/rss+xml" title="{% trans settings.SITE_NAME %} Feed" href="{{prefix_abs_uri}}/feed/jobs/" />
+<link rel="alternate" type="application/rss+xml" title="{% trans settings.SITE_NAME %} Feed" href="{{prefix_abs_uri}}/feed/companies/" />
+<link rel="index" title="{% trans settings.SITE_NAME %}" href="{{prefix_abs_uri}}/" />
+{% block meta %}{% endblock%}
+{% if not settings.DEBUG %}
+  {% load analytics %}
+  {% ga %}
+{% endif %}
+<!-- <script type="text/javascript" src="{{settings.MEDIA_URL}}js/jquery.min.js"></script> -->
+<script type="text/javascript" src="{{prefix_abs_uri}}{{settings.MEDIA_URL}}js/tiny_mce/tiny_mce.js"></script> 
+<script type="text/javascript">
+tinyMCE.init({
+        mode : "textareas",
+        theme : "advanced",
+        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,bullist,numlist,justifyleft,justifycenter,justifyright,justifyfull,removeformat,code",
+        theme_advanced_buttons2 : "",
+        theme_advanced_buttons3 : "",
+        theme_advanced_buttons4 : "",
+        theme_advanced_toolbar_align : "center",
+});
+</script>
+
+  <style type="text/css">
+  table.formset tr td {
+    width: 90%;
+  }
+  #id_name,
+  #id_address, #id_telephone,
+  #id_fax, #id_email, #id_url {
+    width: 100%;
+  }
+  #id_description_html {
+    width: 100%;
+    height: 500px;
+  }
+  .helptext {
+  font-size: smaller;
+  color: green;
+  }
+  ul.errorlist {
+  color: red;
+  font-size: smaller;
+  }
+  #id_job_title, #id_salary {
+    width: 100%;
+  }
+  #id_body_html {
+    width: 100%;
+    height: 400px;
+  }
+  #id_howto_apply_html {
+    width: 100%;
+    height: 200px;
+  }
+  </style>
+{% block extrastyle %}{% endblock%}
+</head>
+<body class="home blog" onload="prettyPrint();">
+<div id="wrapper" class="hfeed">
+<div id="header">
+<div id="masthead">
+<div id="branding" role="banner">
+  <h1 id="site-title">
+    <span> 
+      <a href="{{prefix_abs_uri}}/" title="{% trans settings.SITE_NAME %} " rel="home">{% trans settings.SITE_NAME %} </a>
+    </span>
+  </h1>
+  <div id="site-description">{% trans settings.SITE_DESCRIPTION %}</div>
+</div><!-- #branding -->
+<div id="access" role="navigation">
+  <div class="skip-link screen-reader-text"><a href="#content" title="{% trans 'Skip to content' %}">{% trans "Skip to content" %}</a></div>
+    <div class="menu">
+      <ul>
+        <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}/" title="{% trans 'Home' %}">{% trans "Home" %}</a></li>
+        <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url about_page %}" title="{% trans 'About' %}">{% trans "About"%} </a></li>
+        <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url faq_page %}" title="{% trans 'Faq' %}">{% trans "Faq"%} </a></li> 
+        <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url job_company_list %}" title="{% trans 'View companies' %}">Companies</a></li> 
+{% if user.is_authenticated %}
+        <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url post_job %}" title="{% trans 'Add a new Job' %}">{% trans "New Job"%} </a></li> 
+        <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url post_company %}" title="{% trans 'Add a new company' %}">{% trans "New Company"%} </a></li> 
+        <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url logout_page %}" title="{% trans 'Logout' %}">{% trans "Logout"%} </a></li> 
+        <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url profiles_profile_detail user.username %}" title="{% trans 'View profile.' %}">{{user.username}}</a></li> 
+{% else %}
+        <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url begin backend='google' %}" title="{% trans 'Gmail Login' %}">{% trans "Login"%} </a></li> 
+{% endif %}
+        <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url profiles_profile_list %}" title="{% trans 'User profiles' %}">Profiles</a></li> 
+        <li class="page_item current_page_item"><a href="{{prefix_abs_uri}}{% url post_list %}" title="{% trans 'Blog' %}">Blog</a></li> 
+      </ul>
+    </div>
+</div><!-- #access -->
+
+</div><!-- #masthead -->
+</div><!-- #header -->
+<div id="main">
+<div id="container">
+  <div id="content" role="main">
+  {%block content%}{%endblock%}
+  </div><!-- #content -->
+</div><!-- #container -->
+
+<div id="primary" class="widget-area" role="complementary">
+  {% load jobs_tags %}
+  {% get_latest_content jobs.category 20 as latest_categories %}
+{% comment %}  {% get_latest_content jobs.entry 20 as latest_entries %} 
+<ul class="xoxo">
+{% if latest_entries %}
+<li id="recent-posts" class="widget-container widget_recent_entries">
+    <h3 class="widget-title">{% trans "Recent Posts" %}</h3>
+    <ul>
+    {% for entry in latest_entries %}
+    <li><a href="{{entry.get_absolute_url}}" title="{{entry.pub_date}}">{% trans entry.title %}</a></li>
+    {% endfor %}
+    </ul>
+</li>
+{% endif %}
+{% endcomment %}
+{% if latest_categories %}
+<li id="categories" class="widget-container widget_categories">
+    <h3 class="widget-title">{% trans "Categories" %}</h3>
+    <ul>
+    {% for category in latest_categories %}
+    {% get_category_entries_count category %}
+    {% if count > 0 %}
+    <li><h3><a href="{{prefix_abs_uri}}{{category.get_absolute_url}}" title="View all posts under: {{category}}">{% trans category.title %} ({{count}})</a></h3></li>
+    {% else %}
+    <li><h3><a href="{{prefix_abs_uri}}{{category.get_absolute_url}}" title="View all posts under: {{category}}">{% trans category.title %} </a></h3></li>
+    {% endif %}
+    {% endfor %}
+    </ul>
+</li>
+{% endif %}
+</ul>
+<div>
+<div>
+<h3><a href="http://feedburner.google.com/fb/a/mailverify?uri=pythonjobsph&amp;loc=en_US" target="_blank" title="Click to subscribe" >Subscribe to Latest Jobs for Python Jobs PH by Email</a></h3>
+</div>
+<br />
+<div>
+<div id="fb-root"></div>
+<script>(function(d){
+  var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+  js = d.createElement('script'); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  d.getElementsByTagName('head')[0].appendChild(js);
+}(document));</script>
+<div class="fb-like-box" data-href="http://www.facebook.com/pages/Python-Jobs-PH/137688669661037" data-width="220" data-show-faces="true" data-stream="false" data-header="true"></div>
+</div>
+  {%block primary%}{%endblock%}
+</div><!-- #primary .widget-area -->
+
+<div id="secondary" class="widget-area" role="complementary">
+  {%block secondary%}{%endblock%}
+</div><!-- #secondary .widget-area -->
+
+</div><!-- #main -->
+
+<div id="footer" role="contentinfo">
+  <div id="colophon">
+
+    <div id="site-info">
+     {%block footer %}{%endblock%}
+    </div><!-- #site-info -->
+
+    <div id="site-generator">
+    <!-- <p>{% trans "Copyright &copy 2011" %} {{settings.SITE_AUTHOR}} </p> -->
+    <br />
+    </div><!-- #site-generator -->
+
+  </div><!-- #colophon -->
+</div><!-- #footer -->
+    </div><!-- #wrapper -->
+  </body>
+</html>
+

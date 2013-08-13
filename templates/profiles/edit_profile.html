@@ -1,0 +1,39 @@
+
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Edit Profile{% endblock%}
+
+{% block extrastyle %}
+  <style type="text/css">
+  #id_username, #id_first_name, #id_last_name, #id_email, #id_url {
+    width: 100%;
+  }
+  .helptext {
+  font-size: smaller;
+  }
+  </style>
+{% endblock %}
+
+{% block content %}
+  {% if form %}
+  <h3 class="heading">Edit Profile</h3>
+  <form action="{% url profiles_edit_profile %}" method="post"> {% csrf_token %}
+  <table>
+  {{form.as_table}}
+  </table>
+  <p><input id="id_submit" type="submit" value="Submit"/></p>
+  </form>
+  {% endif %}
+{% endblock %}
+
+{% block primary %}
+{% endblock %}
+
+{% block secondary %}
+{% endblock %}
+
+{% block meta %}
+{% endblock%}
+
+

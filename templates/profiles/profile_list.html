@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+{% load i18n %}
+{% load humanize %}
+{% load jobs_tags %}
+
+{% block title %}Profile List{% endblock%}
+
+{% block content %}
+  {% if object_list %}
+  <h3 class="heading">User Profiles </h3>
+  <div class="">
+    {% for p in object_list %}
+{% if not p.user.is_superuser %} {% comment %}Dont display the user.is_superuser {% endcomment %}
+        <div class="profile">
+          <div class="details">
+            <strong><a href="{{prefix_abs_uri}}{% url profiles_profile_detail p.user.username %}">{{p.user.username}}</a></strong> joined {{p.user.date_joined|timesince|split:','}} ago<br />
+            <strong>last log in:</strong> {{p.user.last_login|timesince|split:','}} ago.
+          </div>
+        </div>
+<hr class="separator" />
+{% endif %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>No user found.</p>
+  {% endif %}
+  
+{% endblock %}
+
+{% block primary %}
+{% endblock %}
+
+{% block secondary %}
+{% endblock %}
+
+{% block meta %}
+{% endblock%}
+
+
